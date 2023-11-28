@@ -73,7 +73,7 @@ public class AlunoApresentacao {
 			cpf = scanner.nextLine();
 			cpfV = validadorCPFAdapter.validarCPF(cpf);
 			if(!cpfV) {
-				System.out.println("Digite o CPF valido!");
+				System.out.println("Digite o CPF valido");
 			}
 		}
 		try {

@@ -13,7 +13,7 @@ public class AlunoDAOMap implements AlunoDAO {
     private Map<Long, Aluno> bancoDeDados = new HashMap<>();
     private static long id =1;
     
-    protected static AlunoDAOMap getInstancia() {
+    public static AlunoDAOMap getInstancia() {
         if (instancia == null) {
             instancia = new AlunoDAOMap();
         }

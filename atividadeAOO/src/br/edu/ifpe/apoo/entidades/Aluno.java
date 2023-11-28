@@ -15,6 +15,14 @@ public class Aluno implements Serializable {
 	private String cpf;
 	private String email;
 
+    public Aluno(Aluno original) {
+        this.id = original.id;
+        this.nome = original.nome;
+        this.cpf = original.cpf;
+        this.email = original.email;
+    }
+    public Aluno() {}
+
 	public long getId() {
 		return id;
 	}
@@ -57,5 +65,9 @@ public class Aluno implements Serializable {
 		this.email = email;
 
 	}
+	   @Override
+	    public Aluno clone() {
+	        return new Aluno(this);
+	    }
 
 }
