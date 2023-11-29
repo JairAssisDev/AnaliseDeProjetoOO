@@ -5,38 +5,39 @@ import br.edu.ifpe.apoo.dao.AlunoDAOAbstractFactory;
 import br.edu.ifpe.apoo.entidades.Aluno;
 import br.edu.ifpe.apoo.excecoes.AlunoNaoEncontradoException;
 import br.edu.ifpe.apoo.excecoes.ExcecaoAlunoInvalido;
+import fachada.AlunoDAOFactory;
 
 public class ControladorAluno {
 	
-    private AlunoDAO dao = AlunoDAOAbstractFactory.getDAO();
+    private AlunoDAO fachadaDao = AlunoDAOFactory.criarAlunoDAO();
 
     public void inserir(Aluno aluno) throws ExcecaoAlunoInvalido {
         if (!isValido(aluno)) {
             throw new ExcecaoAlunoInvalido("Aluno inválido");
         }
-        dao.inserir(aluno);
+        fachadaDao.inserir(aluno);
     }
 
     public void atualizar(Aluno aluno) throws AlunoNaoEncontradoException {
-        Aluno alunoExistente = dao.get(aluno.getId());
+        Aluno alunoExistente = fachadaDao.get(aluno.getId());
         if (alunoExistente != null) {
-            dao.atualizar(aluno);
+        	fachadaDao.atualizar(aluno);
         } else {
             throw new AlunoNaoEncontradoException("Aluno com ID " + aluno.getId() + " não encontrado.");
         }
     }
 
     public boolean remover(long id) throws AlunoNaoEncontradoException {
-        Aluno alunoExistente = dao.get(id);
+        Aluno alunoExistente = fachadaDao.get(id);
         if (alunoExistente != null) {
-            return dao.remover(id);
+            return fachadaDao.remover(id);
         } else {
             throw new AlunoNaoEncontradoException("Aluno com ID " + id + " não encontrado.");
         }
     }
 
     public Aluno get(long id) throws AlunoNaoEncontradoException {
-        Aluno aluno = dao.get(id);
+        Aluno aluno = fachadaDao.get(id);
         if (aluno != null) {
             return aluno;
         } else {
