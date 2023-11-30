@@ -2,12 +2,15 @@ package br.edu.ifpe.apoo.negocio;
 
 import br.edu.ifpe.apoo.dao.AlunoDAO;
 import br.edu.ifpe.apoo.dao.AlunoDAOAbstractFactory;
+import br.edu.ifpe.apoo.dao.AlunoDAOFactory;
 import br.edu.ifpe.apoo.entidades.Aluno;
 import br.edu.ifpe.apoo.excecoes.AlunoNaoEncontradoException;
 import br.edu.ifpe.apoo.excecoes.ExcecaoAlunoInvalido;
-import fachada.AlunoDAOFactory;
 
 public class ControladorAluno {
+	
+	private static final int NUNBER_MIN = 5;
+	private static final int NUNBER_MAX = 100;
 	
     private AlunoDAO fachadaDao = AlunoDAOFactory.criarAlunoDAO();
 
@@ -47,7 +50,7 @@ public class ControladorAluno {
 	 private boolean isValido(Aluno aluno) throws ExcecaoAlunoInvalido {
 		    // Validação do nome
 		    String nome = aluno.getNome();
-		    if (nome == null || nome.length() < 5 || nome.length() > 100) {
+		    if (nome == null || nome.length() < NUNBER_MIN || nome.length() > NUNBER_MAX) {
 		        throw new ExcecaoAlunoInvalido("Nome do aluno inválido");
 		    }
 

@@ -7,21 +7,22 @@ import br.edu.ifpe.apoo.excecoes.TamanhoNomeInvalidoException;
 
 public class Aluno implements Serializable {
 
-	private static final int numberMin = 5;
-	private static final int numberMax = 100;
+	
 
 	private long id;
 	private String nome;
 	private String cpf;
 	private String email;
 
-    public Aluno(Aluno original) {
-        this.id = original.id;
-        this.nome = original.nome;
-        this.cpf = original.cpf;
-        this.email = original.email;
-    }
-    public Aluno() {}
+	public Aluno(Aluno original) {
+		this.id = original.id;
+		this.nome = original.nome;
+		this.cpf = original.cpf;
+		this.email = original.email;
+	}
+
+	public Aluno() {
+	}
 
 	public long getId() {
 		return id;
@@ -35,39 +36,70 @@ public class Aluno implements Serializable {
 		return nome;
 	}
 
-	public void setNome(String nome) throws TamanhoNomeInvalidoException {
-		if (nome != null && nome.length() >= numberMin && nome.length() <= numberMax) {
-			this.nome = nome;
-		} else {
-			throw new TamanhoNomeInvalidoException("O nome do aluno deve ter entre 5 e 100 caracteres.");
-		}
+
+	public String getEmail() {
+		return email;
 	}
 
 	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) throws TamanhoCPFInvalidoException {
-		String cpfSemPontosETraços = cpf.replaceAll("[.-]", "");
-
-		if (cpfSemPontosETraços.length() == 11) {
-			this.cpf = cpfSemPontosETraços;
-		} else {
-			throw new TamanhoCPFInvalidoException("O CPF deve ter 11 caracteres.");
-		}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
-	public String getEmail() {
-		return email;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
 
 	}
-	   @Override
-	    public Aluno clone() {
-	        return new Aluno(this);
-	    }
 
+	@Override
+	public Aluno clone() {
+		
+			return new Builder()
+					.nome(this.nome)
+					.cpf(this.cpf)
+					.email(this.email)
+					.build();
+		
+	}
+
+	public static class Builder {
+
+		private String nome;
+		private String cpf;
+		private String email;
+
+		public Builder() {
+
+		}
+
+		public Builder nome(String nome)  {
+			this.nome = nome;
+			return this;
+		}
+
+		public Builder cpf(String cpf) {
+			this.cpf = cpf;
+			return this;
+		}
+
+		public Builder email(String email) {
+			this.email = email;
+			return this;
+		}
+
+		public Aluno build(){
+			Aluno aluno = new Aluno();
+			aluno.setNome(this.nome);
+			aluno.setCpf(this.cpf);
+			aluno.setEmail(this.email);
+			return aluno;
+		}
+	}
 }

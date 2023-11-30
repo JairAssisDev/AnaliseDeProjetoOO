@@ -2,7 +2,6 @@ package br.edu.ifpe.apoo.apresentacao;
 
 import java.util.Scanner;
 import br.edu.ifpe.apoo.entidades.Aluno;
-import br.edu.ifpe.apoo.entidades.AlunoBuilder;
 import br.edu.ifpe.apoo.excecoes.AlunoNaoEncontradoException;
 import br.edu.ifpe.apoo.excecoes.ExcecaoAlunoInvalido;
 import br.edu.ifpe.apoo.excecoes.TamanhoCPFInvalidoException;
@@ -54,17 +53,12 @@ public class AlunoApresentacao {
 	private void inserir(IFachadaDeNegocio negocio) {
 
 		ValidadorCPF validadorCPFAdapter = new ValidadorCPFAdapter();
-		AlunoBuilder alunoBuilder = new AlunoBuilder();
+		
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("Digite o nome do aluno:");
 		String nome = scanner.nextLine();
-		try {
-			alunoBuilder.setNome(nome);
-		} catch (TamanhoNomeInvalidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		boolean cpfV = false;
 		String cpf = null;
 		while (cpfV == false) {
@@ -76,18 +70,16 @@ public class AlunoApresentacao {
 				System.out.println("Digite o CPF valido");
 			}
 		}
-		try {
-			alunoBuilder.setCpf(cpf);
-		} catch (TamanhoCPFInvalidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		System.out.println("Digite o e-mail do aluno:");
 		String email = scanner.nextLine();
-		alunoBuilder.setEmail(email);
-
-		Aluno aluno = alunoBuilder.build();
-
+		Aluno.Builder builder = new Aluno.Builder();
+		Aluno aluno= builder
+					.nome(nome)
+					.cpf(cpf)
+					.email(email)
+					.build();
+		
 		try {
 			negocio.inserirAluno(aluno);
 			System.out.println("Aluno inserido com sucesso. ID: " + aluno.getId());
