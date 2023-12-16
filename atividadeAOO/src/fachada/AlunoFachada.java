@@ -9,7 +9,7 @@ public class AlunoFachada {
     private AlunoDAO alunoDAO;
 
     public AlunoFachada() {
-        // Usando um Factory para criar a instância do AlunoDAO
+        
         this.alunoDAO = AlunoDAOFactory.criarAlunoDAO();
     }
 
