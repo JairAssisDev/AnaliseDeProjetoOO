@@ -9,7 +9,6 @@ public class AlunoFachada {
     private AlunoDAO alunoDAO;
 
     public AlunoFachada() {
-        
         this.alunoDAO = AlunoDAOFactory.criarAlunoDAO();
     }
 
