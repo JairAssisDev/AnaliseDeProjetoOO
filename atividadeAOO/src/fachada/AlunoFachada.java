@@ -20,7 +20,6 @@ public class AlunoFachada {
         try {
 			alunoDAO.atualizar(aluno);
 		} catch (AlunoNaoEncontradoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
